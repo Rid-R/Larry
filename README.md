@@ -18,7 +18,7 @@ Loads a set of images into the bot for the game.
 2) !list_images
 Displays a list of the images currently loaded in the bot.
 
-3)!guess
+3) !guess
 Starts the game! Larry will show you a random image from the loaded ones, and you have to guess the time of day it was taken.
 
 THANKS
