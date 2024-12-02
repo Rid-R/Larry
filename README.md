@@ -1,26 +1,39 @@
-Larry - Guessing Game Bot
+Photo Time Guessing Bot
 
-Larry is a fun and interactive Discord bot designed to challenge your perception of time! 
-The bot shows you an image, and you have to guess the time of day it was clicked. 
-Built in Python using the discord.py library, Larry is easy to use and guarantees an enjoyable guessing game experience.
-
+>This Discord bot provides a fun and interactive game where users guess the time a photo was taken. 
+Users can participate in two modes, earn coins, and use them to buy power-ups in the shop.
+---
 Features
-1. Load Images: Upload your favorite images for the game.
-2. List Images: See which images are available for guessing.
-3. Play the Game: Guess the time of day the image was taken!
-4.More coming soon
 
+1.🎮 Game Modes
+>Normal Mode
+Players guess the exact time and earn points based on accuracy (up to 5000).
+Points convert to coins, which can be spent on power-ups.
+
+>Fastest Mode
+The first player to guess within 30 minutes of the correct time wins.
+No coins are awarded in this mode.
+
+2.🛒 Shop System
+>Hint Boost (50 coins): Provides additional information about the photo.
+Time Reduction (30 coins): Reduces the guessing range for easier answers.
+
+3.💰 Coin System
+>Earn coins based on guessing accuracy in Normal Mode.
+Use coins to purchase power-ups.
+---
 Commands
-
-1) !load_images
-Loads a set of images into the bot for the game.
-
-2) !list_images
-Displays a list of the images currently loaded in the bot.
-
-3) !guess
-Starts the game! Larry will show you a random image from the loaded ones, and you have to guess the time of day it was taken.
-
-THANKS
+Command	Description	Usage
+---
+!start_game <mode> |	Starts a game. Modes: normal (default) or fastest.	|                    !start_game normal|
+---|---|---|
+!guess_time <time> |	Submit your guess. Time format: HH:MM AM/PM.	       |                   !guess_time 03:15 PM|
+---|---|---|
+!shop	             | View available power-ups in the shop.|	                                  !shop|
+---|---|---|
+!buy <item>	       | Purchase a power-up from the shop. Items: hint_boost, time_reduction.	|  !buy hint_boost|
+---|---|---|
+!balance	         | Check your coin balance and the number of power-ups you own.           |	!balance|
+---|---|---|
 
 
