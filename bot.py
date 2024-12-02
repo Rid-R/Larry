@@ -22,7 +22,7 @@ def save_data(filepath, data):
         json.dump(data, file, indent=4)
 
 def ensure_user(user_id):
-    user_id = str(user_id)  # Use string keys for JSON compatibility
+    user_id = str(user_id) 
     if user_id not in users:
         users[user_id] = {
             "coins": 100,
@@ -99,22 +99,22 @@ async def guess_time(ctx, *, time: str):
     ensure_user(user_id)
     
     if game_mode == "fastest":
-        difference = abs((correct_time - guessed_time).total_seconds() / 60)  # Difference in minutes
+        difference = abs((correct_time - guessed_time).total_seconds() / 60) 
         if difference <= 30:
             await ctx.send(f"🎉 {ctx.author.name} wins! The correct time was {correct_time.strftime('%I:%M %p')}.")
             guessing_open = False
         else:
             await ctx.send(f"❌ {ctx.author.name}, Try again!")
     else:  # Normal mode
-        # Calculate the score
-        difference = abs((correct_time - guessed_time).total_seconds())  # Difference in seconds
-        max_score = 5000
-        max_time_diff = 6 * 60 * 60  # Maximum time difference (12 hours in seconds)
         
-        # Scale score based on difference, closer guesses get higher scores
+        difference = abs((correct_time - guessed_time).total_seconds()) 
+        max_score = 5000
+        max_time_diff = 6 * 60 * 60  
+        
+        
         score = max(0, max_score - int((difference / max_time_diff) * max_score))
         
-        # Add score to user's coins
+        
         users[user_id]["coins"] += score//100
         save_data(USER_DATA_FILE, users)
         
@@ -195,9 +195,7 @@ async def balance(ctx):
         f"Time Reductions: {user_data['power_ups']['time_reduction']}"
     )
 
-# ---------------------------
-# Bot Events
-# ---------------------------
+
 
 @bot.event
 async def on_ready():
