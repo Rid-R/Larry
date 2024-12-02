@@ -104,7 +104,7 @@ async def guess_time(ctx, *, time: str):
             await ctx.send(f"🎉 {ctx.author.name} wins! The correct time was {correct_time.strftime('%I:%M %p')}.")
             guessing_open = False
         else:
-            await ctx.send(f"❌ {ctx.author.name}, you're off by {int(difference)} minutes. Try again!")
+            await ctx.send(f"❌ {ctx.author.name}, Try again!")
     else:  # Normal mode
         # Calculate the score
         difference = abs((correct_time - guessed_time).total_seconds())  # Difference in seconds
@@ -162,6 +162,25 @@ async def buy(ctx, item: str):
             await ctx.send("❌ You don't have enough coins!")
     else:
         await ctx.send("⚠️ Item not recognized! Available items: `hint_boost`, `time_reduction`.")
+
+@bot.command(name="hint")
+async def hint(ctx):
+    global current_image
+    hint_choice=random.choice(["wether","random_event"])
+    user_id = str(ctx.author.id)
+    ensure_user(user_id)
+
+    if current_image is None:
+        await ctx.send("⚠️ No game is currently active! Use `!start_game` to begin.")
+        return
+
+    if users[user_id]["power_ups"]["hint_boost"] > 0:
+        hint_text = image_metadata[current_image].get(hint_choice, "No hint available for this image.")
+        users[user_id]["power_ups"]["hint_boost"] -= 1
+        save_data(USER_DATA_FILE, users)
+        await ctx.send(f"💡 Hint: {hint_text}")
+    else:
+        await ctx.send("❌ You don't have any Hint Boosts! Purchase one in the shop with `!buy hint_boost`.")
 
 @bot.command(name="balance")
 async def balance(ctx):
