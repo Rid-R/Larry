@@ -23,17 +23,17 @@ Time Reduction (30 coins): Reduces the guessing range for easier answers.
 Use coins to purchase power-ups.
 ---
 Commands
-Command	Description	Usage
----
+Command|	Description|	Usage| 
+---| --- | --- |
 !start_game <mode> |	Starts a game. Modes: normal (default) or fastest.	|                    !start_game normal|
----|---|---|
+|  |  |
 !guess_time <time> |	Submit your guess. Time format: HH:MM AM/PM.	       |                   !guess_time 03:15 PM|
----|---|---|
+|  |  |
 !shop	             | View available power-ups in the shop.|	                                  !shop|
----|---|---|
+|  |  |
 !buy <item>	       | Purchase a power-up from the shop. Items: hint_boost, time_reduction.	|  !buy hint_boost|
----|---|---|
+|  |  |
 !balance	         | Check your coin balance and the number of power-ups you own.           |	!balance|
----|---|---|
+
 
 
