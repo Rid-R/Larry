@@ -26,7 +26,7 @@ def ensure_user(user_id):
     if user_id not in users:
         users[user_id] = {
             "coins": 100,
-            "power_ups": {"hint_boost": 0, "time_reduction": 0}
+            "power_ups": {"hint_boost": 0, "gamble_box": 0, "gamble_crate": 0, "gamble_chest": 0}
         }
 
 users = load_data(USER_DATA_FILE)
@@ -132,7 +132,10 @@ async def shop(ctx):
     await ctx.send(
         "🛒 **Shop**:\n"
         "1. Hint Boost - 50 coins\n"
-        "2. Time Reduction - 30 coins\n"
+        "2. Gamble box - 30 coins\n"
+        "3. Gamble crate - 70 coins\n"
+        "4. Gamble chest - 100 coins\n"
+        "Higher the price higher the reward"
         "Use `!buy <item>` to purchase."
     )
 
@@ -151,17 +154,35 @@ async def buy(ctx, item: str):
             await ctx.send("✅ You purchased a Hint Boost!")
         else:
             await ctx.send("❌ You don't have enough coins!")
-    elif item == "time_reduction":
+    elif item == "gamble_box":
         cost = 30
         if users[user_id]["coins"] >= cost:
             users[user_id]["coins"] -= cost
-            users[user_id]["power_ups"]["time_reduction"] += 1
+            users[user_id]["power_ups"]["gamble_box"] += 1
             save_data(USER_DATA_FILE, users)
-            await ctx.send("✅ You purchased a Time Reduction!")
+            await ctx.send("✅ You purchased a gamble_box!")
+        else:
+            await ctx.send("❌ You don't have enough coins!")
+    elif item == "gamble_crate":
+        cost = 70
+        if users[user_id]["coins"] >= cost:
+            users[user_id]["coins"] -= cost
+            users[user_id]["power_ups"]["gamble_crate"] += 1
+            save_data(USER_DATA_FILE, users)
+            await ctx.send("✅ You purchased a gamble_crate!")
+        else:
+            await ctx.send("❌ You don't have enough coins!")
+    elif item == "gamble_chest":
+        cost = 100
+        if users[user_id]["coins"] >= cost:
+            users[user_id]["coins"] -= cost
+            users[user_id]["power_ups"]["gamble_chest"] += 1
+            save_data(USER_DATA_FILE, users)
+            await ctx.send("✅ You purchased a gamble_chest!")
         else:
             await ctx.send("❌ You don't have enough coins!")
     else:
-        await ctx.send("⚠️ Item not recognized! Available items: `hint_boost`, `time_reduction`.")
+        await ctx.send("⚠️ Item not recognized! Available items: `hint_boost`, `Gamble_ticket`.")
 
 @bot.command(name="hint")
 async def hint(ctx):
@@ -182,6 +203,28 @@ async def hint(ctx):
     else:
         await ctx.send("❌ You don't have any Hint Boosts! Purchase one in the shop with `!buy hint_boost`.")
 
+@bot.command(name="gamble")
+async def gamble(ctx, amt:str):
+    
+    money = {"box": 30 ,"crate": 70, "chest": 100 }
+
+    if amt in money:
+        
+        rng = random.randint(money[amt]//4,money[amt]*2)
+        user_id = str(ctx.author.id)
+
+        users[user_id]["coins"] += rng
+        save_data(USER_DATA_FILE,users)
+        await ctx.send(
+        
+            f"You won {rng}.\n"
+            f"Your new Balance:\n"
+            f"Coins: {users[user_id]['coins']}"
+                   
+                    )
+    else:
+        await ctx.send("❌ this gamble dose not exist")
+
 @bot.command(name="balance")
 async def balance(ctx):
     """Check user's coin balance and power-ups."""
@@ -192,7 +235,10 @@ async def balance(ctx):
         f"💰 **{ctx.author.name}'s Balance**:\n"
         f"Coins: {user_data['coins']}\n"
         f"Hint Boosts: {user_data['power_ups']['hint_boost']}\n"
-        f"Time Reductions: {user_data['power_ups']['time_reduction']}"
+        f"Gamble_box: {user_data['power_ups']['gamble_box']}\n"
+        f"Gamble_crate: {user_data['power_ups']['gamble_crate']}\n"
+        f"Gamble_chest: {user_data['power_ups']['gamble_chest']}\n"
+        
     )
 
 

@@ -1,9 +1,11 @@
 {
     "805689786521092098": {
-        "coins": 100,
+        "coins": 1024,
         "power_ups": {
             "hint_boost": 0,
-            "time_reduction": 0
+            "gamble_box": 0,
+            "gamble_crate": 1,
+            "gamble_chest": 0
         }
     }
 }
